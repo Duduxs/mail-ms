@@ -21,11 +21,11 @@ public class EmailResource {
     EmailService service;
 
     @PostMapping("/sending-email")
-    public ResponseEntity<EmailDTO> insert(@RequestBody @Valid EmailDTO emailDto) {
+    public ResponseEntity<Email> insert(@RequestBody @Valid EmailDTO emailDto) {
         Email email = new Email();
         BeanUtils.copyProperties(emailDto, email);
         service.sendEmail(email);
-        return new ResponseEntity(email, CREATED);
 
+        return new ResponseEntity<>(email, CREATED);
     }
 }

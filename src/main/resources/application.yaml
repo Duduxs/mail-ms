@@ -1,4 +1,15 @@
 spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          auth: true
+          smarttls:
+            enable: true
   datasource:
     url: jdbc:postgresql://localhost:5434/ms-email
     username: postgres

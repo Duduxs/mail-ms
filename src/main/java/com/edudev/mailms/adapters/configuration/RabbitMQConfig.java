@@ -1,4 +1,5 @@
-package com.edudev.mailms.adapters.configs;
+package com.edudev.mailms.adapters.configuration;
+
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
@@ -8,21 +9,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-
 @Configuration
 public class RabbitMQConfig {
 
-    @Value("ms.email")
+    @Value("${spring.rabbitmq.queue}")
     private String queue;
 
-    @Value("amqps://ihtthkyn:AGXXBy6yE9ws_YUGPlSV5dPH6NxKuvkS@snake.rmq2.cloudamqp.com/ihtthkyn")
+    @Value("${spring.rabbitmq.addresses}")
     private String uri;
 
     @Bean
     public ConnectionFactory rabbitConnectionFactory() {
         CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
         connectionFactory.setUri(uri);
-
         return connectionFactory;
     }
 
@@ -35,5 +34,4 @@ public class RabbitMQConfig {
     public Jackson2JsonMessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
-
 }

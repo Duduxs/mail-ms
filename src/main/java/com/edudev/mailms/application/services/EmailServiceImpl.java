@@ -1,67 +1,54 @@
-package com.edudev.mailms.application.services;
+package com.ms.email.application.services;
 
-import com.edudev.mailms.application.models.Email;
-import com.edudev.mailms.application.ports.EmailRepository;
-import com.edudev.mailms.application.ports.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.mail.MailException;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+import com.ms.email.application.domain.Email;
+import com.ms.email.application.domain.PageInfo;
+import com.ms.email.application.domain.enums.StatusEmail;
+import com.ms.email.application.ports.EmailRepositoryPort;
+import com.ms.email.application.ports.EmailServicePort;
+import com.ms.email.application.ports.SendEmailServicePort;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.edudev.mailms.application.models.enums.StatusEmail.ERROR;
-import static com.edudev.mailms.application.models.enums.StatusEmail.SENT;
+public class EmailServiceImpl implements EmailServicePort {
 
-public class EmailServiceImpl implements EmailService {
+    private final EmailRepositoryPort emailRepositoryPort;
+    private final SendEmailServicePort sendEmailServicePort;
 
-
-    private final EmailRepository repository;
-
-    private final JavaMailSender sender;
-
-    public EmailServiceImpl(final EmailRepository repository, final JavaMailSender sender){
-        this.repository = repository;
-        this.sender = sender;
+    public EmailServiceImpl(final EmailRepositoryPort emailRepositoryPort, final SendEmailServicePort sendEmailServicePort) {
+        this.emailRepositoryPort = emailRepositoryPort;
+        this.sendEmailServicePort = sendEmailServicePort;
     }
 
     @Override
     public Email sendEmail(Email email) {
         email.setSendDateEmail(LocalDateTime.now());
-
-        try {
-
-            SimpleMailMessage message = new SimpleMailMessage();
-
-            message.setFrom(email.getEmailFrom());
-            message.setTo(email.getEmailTo());
-            message.setSubject(email.getSubject());
-            message.setText(email.getText());
-
-            sender.send(message);
-
-            email.setStatus(SENT);
-        } catch (MailException e) {
-            email.setStatus(ERROR);
-            throw e;
+        try{
+            sendEmailServicePort.sendEmailSmtp(email);
+            email.setStatusEmail(StatusEmail.SENT);
+        } catch (Exception e){
+            email.setStatusEmail(StatusEmail.ERROR);
         } finally {
-            repository.save(email);
+            return save(email);
         }
-        return email;
     }
 
     @Override
-    public Page<Email> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public List<Email> findAll(PageInfo pageInfo) {
+        //inserir manipulação de dados/regras
+        return  emailRepositoryPort.findAll(pageInfo);
     }
 
     @Override
     public Optional<Email> findById(UUID emailId) {
-        return repository.findById(emailId);
+        //inserir manipulação de dados/regras
+        return emailRepositoryPort.findById(emailId);
+    }
+
+    @Override
+    public Email save(Email email) {
+        return emailRepositoryPort.save(email);
     }
 }

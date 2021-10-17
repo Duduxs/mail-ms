@@ -17,6 +17,10 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  rabbitmq:
+    addresses: amqps://ihtthkyn:AGXXBy6yE9ws_YUGPlSV5dPH6NxKuvkS@snake.rmq2.cloudamqp.com/ihtthkyn
+    queue: ms.email
+
 
 server:
   port: 8083

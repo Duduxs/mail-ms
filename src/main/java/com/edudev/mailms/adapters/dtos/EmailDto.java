@@ -1,4 +1,4 @@
-package com.edudev.mailms.adapters.inbound.dtos;
+package com.edudev.mailms.adapters.dtos;
 
 import lombok.Data;
 
@@ -6,7 +6,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
-public class EmailDTO {
+public class EmailDto {
 
     @NotBlank
     private String ownerRef;
@@ -20,4 +20,5 @@ public class EmailDTO {
     private String subject;
     @NotBlank
     private String text;
+
 }

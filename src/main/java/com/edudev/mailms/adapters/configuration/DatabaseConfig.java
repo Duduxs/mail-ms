@@ -1,4 +1,4 @@
-package com.edudev.mailms.adapters.configs;
+package com.edudev.mailms.adapters.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.jdbc.DataSourceBuilder;
@@ -11,13 +11,13 @@ import javax.sql.DataSource;
 @Configuration
 public class DatabaseConfig {
 
-    @Value("${database.config.url}")
+    @Value("${spring.datasource.url}")
     private String url;
 
-    @Value("${database.config.username}")
+    @Value("${spring.datasource.username}")
     private String username;
 
-    @Value("${database.config.password}")
+    @Value("${spring.datasource.password}")
     private String password;
 
     @Bean

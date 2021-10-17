@@ -6,17 +6,18 @@ import lombok.Data;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.*;
 
 @Data
 @Entity
 @Table(name = "TB_EMAIL")
-public class Email  implements Serializable {
+public class Email implements Serializable {
 
     @Id
     @GeneratedValue(strategy = AUTO)
-    private Long id;
+    private UUID id;
 
     private String ownerRef;
 

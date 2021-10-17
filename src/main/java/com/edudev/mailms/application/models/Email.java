@@ -1,6 +1,6 @@
-package com.edudev.mailms.models;
+package com.edudev.mailms.application.models;
 
-import com.edudev.mailms.enums.StatusEmail;
+import com.edudev.mailms.application.models.enums.StatusEmail;
 import lombok.Data;
 
 import javax.persistence.*;

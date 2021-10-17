@@ -1,4 +1,4 @@
-package com.edudev.mailms.dtos;
+package com.edudev.mailms.adapters.inbound.dtos;
 
 import lombok.Data;
 

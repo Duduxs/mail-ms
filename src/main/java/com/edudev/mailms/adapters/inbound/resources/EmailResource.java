@@ -1,8 +1,8 @@
-package com.edudev.mailms.resources;
+package com.edudev.mailms.adapters.inbound.resources;
 
-import com.edudev.mailms.dtos.EmailDTO;
-import com.edudev.mailms.models.Email;
-import com.edudev.mailms.services.EmailService;
+import com.edudev.mailms.adapters.inbound.dtos.EmailDTO;
+import com.edudev.mailms.application.models.Email;
+import com.edudev.mailms.application.services.EmailServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class EmailResource {
 
     @Autowired
-    EmailService service;
+    EmailServiceImpl service;
 
     @PostMapping("/sending-email")
     public ResponseEntity<Email> insert(@RequestBody @Valid EmailDTO emailDto) {

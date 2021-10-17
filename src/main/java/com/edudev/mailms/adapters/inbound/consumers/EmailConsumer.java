@@ -1,9 +1,9 @@
-package com.edudev.mailms.consumers;
+package com.edudev.mailms.adapters.inbound.consumers;
 
 
-import com.edudev.mailms.dtos.EmailDTO;
-import com.edudev.mailms.models.Email;
-import com.edudev.mailms.services.EmailService;
+import com.edudev.mailms.adapters.inbound.dtos.EmailDTO;
+import com.edudev.mailms.application.models.Email;
+import com.edudev.mailms.application.services.EmailServiceImpl;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class EmailConsumer {
 
     @Autowired
-    EmailService service;
+    EmailServiceImpl service;
 
     @RabbitListener(queues = "${spring.rabbitmq.queue}")
     public void listen(@Payload EmailDTO dto) {
